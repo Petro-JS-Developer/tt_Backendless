@@ -12,18 +12,25 @@ function App() {
   const countingValuesOperators = () => {
     switch (currentOperator) {
       case ('/'):
-        if (residualValue) {
+        if (residualValue && !Number.isNaN(Number(residualValue))) {
           setResPrefValues(startValue / Number(residualValue));
         }
         break;
       case ('*'):
-        setResPrefValues(startValue * Number(residualValue));
+        if (!Number.isNaN(Number(residualValue))) {
+          setResPrefValues(startValue * Number(residualValue));
+        }
         break;
       case ('-'):
-        setResPrefValues(startValue - Number(residualValue));
+        if (!Number.isNaN(Number(residualValue))) {
+          setResPrefValues(startValue - Number(residualValue));
+        }
         break;
       case ('+'):
-        setResPrefValues(startValue + Number(residualValue));
+        if (!Number.isNaN(Number(residualValue))) {
+          setResPrefValues(startValue + Number(residualValue));
+        }
+
         break;
       default:
         break;
@@ -71,11 +78,8 @@ function App() {
         return;
       }
 
-      let allValueCurrentInput = valueCurrentInput + value;
+      const allValueCurrentInput = valueCurrentInput + value;
       /* DOT */
-      if (value === '.') {
-        allValueCurrentInput = valueCurrentInput + 0 + value;
-      }
       if (!startValue && valueCurrentInput.includes('.') && value === '.') {
         return;
       }
